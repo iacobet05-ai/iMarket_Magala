@@ -3,7 +3,9 @@ from telebot import types
 from apisetup import api
 t_token = api
 bot = telebot.TeleBot(t_token)
+
 @bot.message_handler(content_types=['text'])
+
 def get_text_messages(message):
     if message.text == 'Запустити':
         markup = types.ReplyKeyboardMarkup(resize_keyboard=True) #create buttons
@@ -33,4 +35,23 @@ def get_text_messages(message):
     elif message.text == 'Підтримка':
         bot.send_message(message.from_user.id,'Підтримка буде скоро')
 
+# def create_menu(self, type_menu: str) -> types.InlineKeyboardMarkup:
+#     '''Создаём меню для TG бота'''
+#     markup = types.InlineKeyboardMarkup()
+#     btn_list = self.__select_button(type_menu)
+#     for element in btn_list.items():
+#         btn = types.InlineKeyboardButton(text=element[0], callback_data=element[1])
+#         markup.add(btn)
+# #     return markup
+#
+# menu = create_menu()
+
+def create_menu(self, type_menu: str) -> types.InlineKeyboardMarkup:
+    '''Создаём меню для TG бота'''
+    markup = types.InlineKeyboardMarkup()
+    btn_list = self.__select_button(type_menu)
+    for element in btn_list.items():
+        btn = types.InlineKeyboardButton(text=element[0], callback_data=element[1])
+        markup.add(btn)
+    return markup
 bot.polling(non_stop=True, interval=0)
